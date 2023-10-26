@@ -1,3 +1,4 @@
+
 :-consult('board.pl').
 
 nrPieces(7, 7, 8).
@@ -29,8 +30,11 @@ putPiece(Board, X, Y, NewCell, NewBoard) :-
         pushPiece(Board5, X2, Y, -1, 0, Board6),
         pushPiece(Board6, X2, Y2, -1, -1, Board7),
         pushPiece(Board7, X, Y2, 0, -1, Board8),
+        pushPiece(Board8, X1, Y2, 1, -1, NewBoard).
+
         pushPiece(Board8, X1, Y2, 1, -1, Board9),
         clearBoarders(Board9, XMax, YMax, NewBoard).
+
 
 winner(Board, Color) :-
         length(Board, XMax),
@@ -63,7 +67,7 @@ pushPiece(Board, X, Y, IncX, IncY, NewBoard) :-
         Cell \= white,
         Cell1 \= white,
         pushPiece(Board, X1, Y1, IncX, IncY, NewBoard).
-
+        
 clearBoarders(Board, Width, Height, NewBoard) :-
     clearColumn(Board, 0, Height, 0, TempBoard1), % Clear the first column
     clearRow(TempBoard1, 0, Width, 0, TempBoard2), % Clear the first row
