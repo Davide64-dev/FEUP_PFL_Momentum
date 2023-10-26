@@ -31,6 +31,14 @@ putPiece(Board, X, Y, NewCell, NewBoard) :-
         pushPiece(Board7, X, Y2, 0, -1, Board8),
         pushPiece(Board8, X1, Y2, 1, -1, Board9),
         clearBoarders(Board9, XMax, YMax, NewBoard).
+
+winner(Board, Color) :-
+        length(Board, XMax),
+        first_element(Board, Temp),
+        length(Temp, YMax),
+        nrPieces(XMax, YMax, NrPieces),
+        countCells(Board, Color, Count),
+        Count == NrPieces.
         
 
 pushPiece(Board, X, Y, IncX, IncY, NewBoard) :-
