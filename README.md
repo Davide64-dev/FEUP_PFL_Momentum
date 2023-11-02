@@ -14,10 +14,10 @@
 ## Game Logic
 
 
-### Internal Game State Representation
+- ### Internal Game State Representation
 
 
-### Game State Visualization
+- ### Game State Visualization
 
 
 ### Move Validation and Execution
