@@ -1,5 +1,7 @@
 :-consult('io.pl').
 :-consult('board/board.pl').
+:-consult('game.pl').
+:-consult('board/logic.pl').
 
 %Prints the game title
 print_title :-
@@ -14,6 +16,8 @@ print_title :-
 
 valid_menu_options(['0', '1', '2', '3']).
 valid_submenu_options(['0', '1', '2', '3']).
+valid_column_options(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']).
+valid_row_options(['0', '1', '2', '3', '4', '5', '6', '7', '8']).
 
 handle(start, '1', play).
 handle(start, '2', rules).
@@ -88,88 +92,13 @@ print_levels_menu :-
     write('Select a level\n').
 
 
-%Define how to handle each choice from the user in the board menu
-handle_board_menu_option('1') :-
-    write('P VS P').
-
-handle_board_menu_option('2') :-
+print_plays_first :-
+    print_option('1', 'Player'),
+    print_option('2', 'Computer'),
     write('\n'),
-    print_levels_menu,
-    read_option(SelectedOption),
-    handle_level_menu_option(SelectedOption).
+    write('Select who plays First\n').
 
-handle_board_menu_option('3') :-
-    write('\n'),
-    print_levels_menu,
-    read_option(SelectedOption),
-    handle_level_menu_option(SelectedOption).
-
-
-handle_board_menu_option('0') :-
-    write('\n'),
-    print_levels_menu,
-    read_option(SelectedOption),
-    handle_submenu_option(SelectedOption).
-
-
-%Define how to handle each user choice in the levels' menu
-handle_level_menu_option('1') :-
-    write('\n'),
-    write('Level1\n').
-
-handle_level_menu_option('2') :-
-    write('\n'),
-    write('Level2\n').
-
-handle_level_menu_option('0') :-
-    write('\n'),
-    print_board_menu,
-    read_option(SelectedOption),
-    handle_board_menu_option(SelectedOption).
     
-
-
-%Define how to handle each choice from the user in the submenu
-handle_submenu_option('1') :-
-    write('\n'),
-    print_board_menu,
-    read_option(SelectedOption),
-    handle_board_menu_option(SelectedOption).
-
-
-handle_submenu_option('2') :-
-    write('\n'),
-    print_board_menu,
-    read_option(SelectedOption),
-    handle_board_menu_option(SelectedOption).
-
-
-handle_submenu_option('3') :-
-    write('\n'),
-    print_board_menu,
-    read_option(SelectedOption),
-    handle_board_menu_option(SelectedOption).
-
-
-handle_submenu_option('0') :-
-    write('\n'),
-    print_menu,
-    read_option(SelectedOption),
-    handle_menu_option(SelectedOption).
-
-
-
-%Define how to handle each choice from the user in the menu
-handle_menu_option('1') :-
-    write('\n'),
-    print_submenu,
-    read_option(SelectedOption),
-    handle_submenu_option(SelectedOption). 
-
-
-handle_menu_option('0') :-
-    write('\n'),
-    write('Goodbye!\n').
 
 
 
@@ -193,7 +122,7 @@ menu(pvp) :-
     numToBoard(Temp, Temp1),
     board_dimensions(Temp1, Width, Height),
     initialize_board(Width, Height, _Board),
-    print_board(_Board).
+    run_game(pvp, _Board, blue, 1).
 
 menu(pvc) :-
     print_board_menu,
@@ -201,7 +130,11 @@ menu(pvc) :-
     numToBoard(Temp, Temp1),
     board_dimensions(Temp1, Width, Height),
     initialize_board(Width, Height, _Board),
-    print_board(_Board).
+    print_levels_menu,
+    read_option(Level),
+    print_plays_first,
+    read_option(First),
+    run_game(pvc, _Board, Level, First).
 
 menu(cvc) :-
     print_board_menu,
@@ -209,8 +142,11 @@ menu(cvc) :-
     numToBoard(Temp, Temp1),
     board_dimensions(Temp1, Width, Height),
     initialize_board(Width, Height, _Board),
-    print_board(_Board).
-        
+    print_levels_menu,
+    read_option(Level1),
+    print_levels_menu,
+    read_option(Level2),
+    run_game(cvc, _Board, Level1, Level2).
 
 menu(exit).
 

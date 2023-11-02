@@ -1,3 +1,5 @@
+valid_boolean_answers(['y', 'n']).
+
 
 %Prints an option from the menu and submenu
 %print_option(+Key, +Text)
@@ -13,6 +15,28 @@ read_option(Option) :-
     read_input([Input|_]),
     (member(Input, ValidOptions) -> Option = Input, !;
      write('Invalid Option. Please try again!\n'), fail).
+
+read_column(Option) :-
+    valid_column_options(ValidOptions),
+    repeat,
+    read_input([Input|_]),
+    (member(Input, ValidOptions) -> Option = Input, !;
+     write('Invalid Option. Please try again!\n'), fail).
+
+read_row(Option) :-
+    valid_row_options(ValidOptions),
+    repeat,
+    read_input([Input|_]),
+    (member(Input, ValidOptions) -> Option = Input, !;
+     write('Invalid Option. Please try again!\n'), fail).
+
+read_pie_rule(Option) :-
+    valid_boolean_answers(ValidOptions),
+    repeat,
+    read_input([Input|_]),
+    (member(Input, ValidOptions) -> Option = Input, !;
+     write('Invalid Option. Please try again!\n'), fail).
+    
                         
 
 %Reads the input from the keyboard

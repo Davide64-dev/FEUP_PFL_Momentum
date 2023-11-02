@@ -1,19 +1,24 @@
 :- use_module(library(lists)).
 
-replace(Idx, L1, Val, L2) :-
-    length(L1, Length),
-    Length > Idx,
-    replace(Idx, L1, Val, L2, []).
+column('A', 0).
+column('B', 1).
+column('C', 2).
+column('D', 3).
+column('E', 4).
+column('F', 5).
+column('G', 6).
+column('H', 7).
+column('I', 8).
 
-replace(0, [_ | T], Val, L2, Acc) :-
-    append(Acc, [Val], Acc1),
-    append(Acc1, T, L2), !.
-
-replace(Idx, [H | T], Val, L2, Acc) :-
-    Idx > 0,
-    append(Acc, [H], Acc1),
-    Idx1 is Idx - 1,
-    replace(Idx1, T, Val, L2, Acc1).
+row('0', 0).
+row('1', 1).
+row('2', 2).
+row('3', 3).
+row('4', 4).
+row('5', 5).
+row('6', 6).
+row('7', 7).
+row('8', 8).
 
 
 board_size(9).
@@ -42,16 +47,21 @@ initialize_row(Cols, [white | Rest]) :-
     NextCols is Cols - 1,
     initialize_row(NextCols, Rest).
 
-get_cell(Board, Row, Col, Cell) :-
-    nth0(Row, Board, BoardRow),
-    nth0(Col, BoardRow, Cell).
+get_cell(Board, X, Y, Cell) :-
+    nth0(X, Board, Row),
+    nth0(Y, Row, Cell).
 
 
 replaceCell(Board, X, Y, NewCell, NewBoard) :-
-    nth0(Y, Board, Line),
-    replace(X, Line, NewCell, NewLine),
-    replace(Y, Board, NewLine, NewBoard).
+    nth0(X, Board, Row),
+    replace(Row, Y, NewCell, NewRow),
+    replace(Board, X, NewRow, NewBoard).
 
+replace([_|T], 0, X, [X|T]).
+replace([H|T], I, X, [H|R]) :- 
+    I > 0, 
+    I1 is I - 1, 
+    replace(T, I1, X, R).
     
 
 print_board([]).
