@@ -20,19 +20,19 @@
 - ### Game State Visualization
 
 
-### Move Validation and Execution
+- ### Move Validation and Execution
 
 
-### List of Valid Moves
+- ### List of Valid Moves
 
 
-### End of Game
+- ### End of Game
 
 
-### Game State Evaluation
+- ### Game State Evaluation
 
 
-### Computer plays
+- ### Computer plays
 
 
 ## Conclusions
