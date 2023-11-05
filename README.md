@@ -23,7 +23,10 @@ The rules of the game were obtained from (**insert names**)
 
 
 - ### Game State Visualization
-
+Before the game starts, the user has to configurate the settings of the game. In other words, they have to choose:
+    - The game mode, the options being Human VS. Human, Human VS. Computer and Computer VS. Computer;
+    - The game board size, 7 X 7, 7 X 9 and 9 X 9;
+    
 
 - ### Move Validation and Execution
 

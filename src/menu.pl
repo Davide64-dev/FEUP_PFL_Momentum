@@ -177,10 +177,12 @@ menu(cvc) :-
     print_levels_menu,
     read_option(Level2),
     run_game(cvc, _Board, Level1, Level2, blue, 1).
-menu(exit).
+
+menu(exit) :-
+    write('\n'),
+    write('Goodbye!\n').
 
 
 % Starts the game
 play :-
-    run_menu,
-    clear_data.
+    run_menu.
