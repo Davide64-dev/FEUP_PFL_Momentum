@@ -56,26 +56,24 @@ For creating the initial state of the game, we have a predicate`initial_state` t
 
 When executing a move, it is necessary to garantee that that move is valid in the conext of that game state and the rules. With that we implemented a predicate `initial_state` taht is responsible for doing that validation. The rules says that every time a user wans to put a cell, that cell must be empty, represented in our game as `white` and that it cannot be on the boarders of the board, with that in mind, this predicate was created
 
+![Alt text](img/validate_move.png)
+
 
 - ### List of Valid Moves
-In each move, we validate whether it is valid. A move is considered valid if:
-    - The selected cell falls within the size boundaries of the game board.
-    - The chosen X and Y coordinates are greater than 0.
-    - The selected cell is empty (white).
 
-(**insert image of valid_moves**)
+With that, a predicate called `valid_moves`was created that has the only purpose to, inside of the board, return a list of all possible cells where a user can put his piece.
 
 - ### End of Game
-The game concludes when one of the players successfully places all of their counters on the game board. To determine this, a count of the counters within the board is performed after each move. If the count matches the total number of counters that each player initially possessed, than the player won the game.
+The game concludes when one of the players successfully places all of their counters on the game board. To determine this, a count of the counters within the board is performed after each move. If the count matches the total number of counters that each player initially possessed, than the player won the game. That is represented with the predicate `game_over` which verifies, as the rules said, after each round where a user puts a cell, verifies if that user has already all of his cells in the board. If yes, the game finishes and that user is the winner, if not, the game continues.
 
 - ### Game State Evaluation
 
+The game state is evaluated with a apremeter that counts the round number of the game.
 
 - ### Computer plays
     In the terms of the computer plays we used two strategies:
-    - random, when playing in level 1, that as the name says, it chooses random values for the column and the row and checks if the move is valid.
-        (**insert image of easy bot**)
-    - greedy, when playing in level 2,  
+    - random, when playing in level 1, that as the name says, it chooses random values for the column and the row and checks if the move is valid. 
+    - greedy, when playing in level 2.
 
 ## Conclusions
 The game was developed with three distinct modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer), along with three different board sizes (7x7, 7x9, and 9x9). The modes involving the Computer come with two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is rigorously validated to ensure a smooth gaming experience.
