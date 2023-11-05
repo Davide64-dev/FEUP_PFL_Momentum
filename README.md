@@ -84,7 +84,13 @@ The game state is evaluated based on the current round number.
 - ### Computer plays
   For the computer's moves, two strategies are employed:
     - random moves in level 1, where the computer chooses random values for the column and row and checks if the move is valid.
+      <p align="center">
+        <img src="img/easy_bot.png" />
+      </p>
     - greedy moves in level 2, where the computer checks what is the best play in order to increase his number of counters on the board.
+      <p align="center">
+        <img src="img/hard_bot.png" />
+      </p>
 
 ## Conclusions
 The game was developed with three different modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer) and supports three distinct board sizes (7x7, 7x9, and 9x9). The modes involving the computer offer two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is thoroughly validated to ensure a smooth gaming experience. The main challenge encountered was organizing the code, which is a feature that can be improved. Overall, the project provided a valuable opportunity to solidify our understanding of the logical programming concepts learned in class.
