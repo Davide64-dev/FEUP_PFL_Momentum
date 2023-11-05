@@ -1,3 +1,5 @@
+
+
 run_game(pvp, _Board, X, Y) :-
     Y \= 2,
     print_board(_Board),
@@ -76,14 +78,68 @@ pie_rule('n', pvp, _Board, X) :-
 
 
 
-run_game(pvc, _Board, Level, First) :-
+run_game(pvc, _Board, Level, First, X, Y) :-
     print_board(_Board),
+    game_loop(_Board, Level, First, Y).
+
+% Game loop
+game_loop(Board, Level, CurrentPlayer, Y) :-
+    (
+        CurrentPlayer == 'blue' -> 
+        human_turn(Board, NewBoard, CurrentPlayer, Y),  % Human's turn
+        (
+            winner(NewBoard, CurrentPlayer, Level) -> 
+            write('Game Over!'), nl
+            ;
+            computer_turn(NewBoard, Level, NewBoardAfterBot, 'red'),  % Computer's turn
+            print_board(NewBoardAfterBot),
+            game_loop(NewBoardAfterBot, Level, 'red', Y)  % Continue the game loop
+        )
+        ;
+        % CurrentPlayer is 'red'
+        computer_turn(Board, Level, NewBoard, CurrentPlayer, Y),  % Computer's turn
+        (
+            winner(NewBoard, CurrentPlayer, Level) -> 
+            write('Game Over!'), nl
+            ;
+            human_turn(NewBoard, NewBoardAfterHuman, 'blue', Y),  % Human's turn
+            print_board(NewBoardAfterHuman),
+            game_loop(NewBoardAfterHuman, Level, 'blue', Y)  % Continue the game loop
+        )
+    ).
+
+% Human's turn
+human_turn(Board, NewBoard, CurrentPlayer, Y) :-
+    write('Enter column: '),
     read_column(ColumnString),
-    read_row(RowString),
     column(ColumnString, Column),
+    write('Enter row: '),
+    read_row(RowString),
     row(RowString, Row),
-    putPiece(_Board, Column, Row, _NewCell, _NewBoard),
-    print_board(_NewBoard).
+    (
+        validate_move(Board, Column, Row) -> 
+        putPiece(Board, Row, Column, CurrentPlayer, NewBoard),
+        write('\n'),
+        winner(NewBoard, X, Y); 
+        write('Invalid move, please try again.'), nl,
+        fail
+    ).
+
+% Computer's turn
+computer_turn(Board, Level, NewBoard, CurrentPlayer, Y) :-
+    (
+        Level == '1' ->
+        % EasyBot (random moves)
+        write('Computer (EasyBot) is thinking...'), nl,
+        easyBotMove(Board, CurrentPlayer, NewBoard)
+        ;
+        Level == '2' ->
+        % Advanced Bot (implement your strategy)
+        write('Computer (AdvancedBot) is thinking...'), nl,
+        advancedBotMove(Board, CurrentPlayer, NewBoard)  % Implement your advanced bot logic here
+    ).
+
+
 
 run_game(cvc, _Board, Level1, Level2) :-
     print_board(_Board),

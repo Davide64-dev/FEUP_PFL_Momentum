@@ -2,8 +2,9 @@
 :-consult('board/board.pl').
 :-consult('game.pl').
 :-consult('board/logic.pl').
+:-consult('bot.pl').
 
-%Prints the game title
+% Displays the game title
 print_title :-
     write('\t  __    __     ______     __    __     _______     ___    __     ___________     __    __     __    __ \n'),
     write('\t |   \\/   |   |  __  |   |   \\/   |   |   ____|   |   \\  |  |   |           |   |  |  |  |   |   \\/   |\n'),
@@ -14,11 +15,15 @@ print_title :-
     write('\n').
 
 
+% Indicates the valid menu options
 valid_menu_options(['0', '1', '2', '3']).
 valid_submenu_options(['0', '1', '2', '3']).
 valid_column_options(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']).
 valid_row_options(['0', '1', '2', '3', '4', '5', '6', '7', '8']).
 
+
+% Indicates the handles of the menus
+% handle(+State, +Choice, -FinalState)
 handle(start, '1', play).
 handle(start, '2', rules).
 handle(start, '0', exit).
@@ -27,17 +32,24 @@ handle(play, '1', pvp).
 handle(play, '2', pvc).
 handle(play, '3', cvc).
 
+
+% Indicates the transformation beteween the user choice and the dimension of the board
+% numToBoard(+Num, -Size)
 numToBoard('1', '7 X 7').
 numToBoard('2', '7 X 9').
 numToBoard('3', '9 X 9').
 
+
+% Tranform the string with the board dimensions in two values
+% board_dimensions(+Size, -Width, -Height)
 board_dimensions('7 X 7', 7, 7).
 board_dimensions('7 X 9', 7, 9).
 board_dimensions('9 X 9', 9, 9).
 
 
 
-%Prints the menu options
+% Displays the main menu options
+% print_menu(+State, -Result)
 print_menu(start, Res) :-
     print_option('1', 'Play'),
     print_option('2', 'Rules'),
@@ -47,6 +59,9 @@ print_menu(start, Res) :-
     read_option(Temp),
     handle(start, Temp, Res).
 
+
+% Displays the rules of the game
+% print_menu(+State, -Result)
 print_menu(rules, Res) :-
     write('\n'),
     write('Rules: \n\n'),
@@ -61,45 +76,45 @@ print_menu(rules, Res) :-
     read_option(Temp),
     handle(rules, Temp, Res).
 
+
+% Displays the menu where the user chooses the game mode
+% print_menu(+State, -Result)
 print_menu(play, Res) :-
     write('\n'),
     print_option('1', 'Human VS Human'),
     print_option('2', 'Human VS Computer'),
     print_option('3', 'Computer VS Computer'),
-    print_option('0', 'Get back'),
     write('\n'),
     write('Select a Game Type\n'),
     read_option(Temp),
     handle(play, Temp, Res).
 
 
-%Prints the board size options
+% Displays the board size options
+% print_board_menu(+State, -Result)
 print_board_menu :-
     print_option('1', '7 X 7'),
     print_option('2', '7 X 9'),
     print_option('3', '9 X 9'),
-    print_option('0', 'Get back'),
     write('\n'),
     write('Select a board size\n').
 
 
-%Prints the levels menu
+% Displays the levels menu
+% print_levels_menu(+State, -Result)
 print_levels_menu :-
     print_option('1', 'Level 1'),
     print_option('2', 'Level 2'),
-    print_option('0', 'Get back'),
     write('\n'),
     write('Select a level\n').
 
 
+% Displays the menu where we choose the first player
 print_plays_first :-
     print_option('1', 'Player'),
     print_option('2', 'Computer'),
     write('\n'),
     write('Select who plays First\n').
-
-    
-
 
 
 % Define a predicate to run the menu.
@@ -108,6 +123,8 @@ run_menu :-
     menu(start).
 
 
+% Define menu predicate
+% menu(+State)
 menu(State) :-
         State \= exit,
         State \= pvp,
@@ -116,6 +133,9 @@ menu(State) :-
         print_menu(State, Res),
         menu(Res).
 
+
+% Handle the menu option for Person vs. Person (pvp)
+% menu(+Mode)
 menu(pvp) :-
     print_board_menu,
     read_option(Temp),
@@ -124,6 +144,9 @@ menu(pvp) :-
     initialize_board(Width, Height, _Board),
     run_game(pvp, _Board, blue, 1).
 
+
+% Handle the menu option for Person vs. Computer (pvc)
+% menu(+Mode)
 menu(pvc) :-
     print_board_menu,
     read_option(Temp),
@@ -134,8 +157,11 @@ menu(pvc) :-
     read_option(Level),
     print_plays_first,
     read_option(First),
-    run_game(pvc, _Board, Level, First).
+    run_game(pvc, _Board, Level, First, blue, 1).
 
+
+% Handle the menu option for Computer vs. Computer (cvc)
+% menu(+Mode)
 menu(cvc) :-
     print_board_menu,
     read_option(Temp),
@@ -150,3 +176,6 @@ menu(cvc) :-
 
 menu(exit).
 
+play :-
+    run_menu,
+    clear_data.

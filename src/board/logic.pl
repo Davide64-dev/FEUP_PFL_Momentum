@@ -1,12 +1,20 @@
+% Define the number of pieces based on the board dimensions
+% nrPieces(+Width, +Height, -NumberOfPieces)
 nrPieces(7, 7, 8).
 nrPieces(7, 9, 10).
 nrPieces(9, 9, 12).
 
+
+% Change the color between the players
+% changeColor(+Color, -FinalColor)
 changeColor(blue, red).
 changeColor(red, blue).
 
 first_element([X|_], X).
 
+
+% Places a piece on the board
+% putPiece(+Board, +XCoordinate, +YCoordinate, +NewValue, -NewBoard)
 putPiece(Board, X, Y, NewCell, NewBoard) :-
     length(Board, XMax),
     nth1(1, Board, Temp),
@@ -39,18 +47,33 @@ validate_move(Board, X, Y) :-
         get_cell(Board, X, Y, Cell),
         Cell == white.
 
+
 findNonWhiteCell(Board, X, Y) :-
     nth0(X, Board, Row),
     nth0(Y, Row, Cell),   
     Cell \= white.  
 
 
+% Check if a cell is empty.
+emptyCell(Board, X, Y) :-
+    nth0(X, Board, Row),
+    nth0(Y, Row, Cell),
+    Cell == white.
+
+
+% Find all empty cells on the board.
+findEmptyCells(Board, EmptyCells) :-
+    findall([X, Y], emptyCell(Board, X, Y), EmptyCells).
+
 countElement([], _, 0).
+
 countElement([X|T], X, N) :-
     countElement(T, X, N1),
     N is N1 + 1.
+
 countElement([_|T], X, N) :-
     countElement(T, X, N).
+
 
 % Helper predicate to count the occurrences of a color in each row
 countRows([], _, 0).
@@ -58,6 +81,7 @@ countRows([Row|Rows], Color, Count) :-
     countElement(Row, Color, Count1),
     countRows(Rows, Color, Count2),
     Count is Count1 + Count2.
+
 
 % Predicate to count the cells of a certain color
 countCells(Board, Color, Count) :-
