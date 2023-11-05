@@ -23,8 +23,8 @@ The rules of the game were obtained from (**insert names**)
 
 
 - ### Game State Visualization
-In order to start the game, they first have to choose between playing, see the rules or exit. Then, to play the game they choose the first option. There they have to configurate the settings of the game, that includes choosing the game mode (Human VS. Human, Human VS. Computer and Computer VS. Computer) followed by the size of the game board (7 X 7, 7 X 9 and 9 X 9).
-In the Human VS. Human mode the game begins after those choices. However, in the other modes the players still have to choose the level (Level 1 or Level 2) and which player starts first.
+To initiate the game, players are presented with the options to "Play," "View Rules," or "Exit." Selecting "Play" allows them to configure the game settings, which includes choosing the game mode (Human VS. Human, Human VS. Computer or Computer VS. Computer), followed by the game board size (7x7, 7x9 or 9x9).
+In Human VS. Human mode, the game commences after these choices. However, in the other modes, players further specify the level (Level 1 or Level 2) and determine which player starts the game.
 A possible interaction is represented in the image below.
 (**insert image 2**)
 
@@ -39,10 +39,15 @@ In every option the input validation is secured. This happens not only on the me
 
 
 - ### List of Valid Moves
+In each move, we validate whether it is valid. A move is considered valid if:
+    - The selected cell falls within the size boundaries of the game board.
+    - The chosen X and Y coordinates are greater than 0.
+    - The selected cell is empty (white).
 
+(**insert image of valid_moves**)
 
 - ### End of Game
-
+The game concludes when one of the players successfully places all of their counters on the game board. To determine this, a count of the counters within the board is performed after each move. If the count matches the total number of counters that each player initially possessed, than the player won the game.
 
 - ### Game State Evaluation
 
