@@ -33,6 +33,7 @@ winner(pvp, NewBoard, X, Y) :-
     length(Temp, YMax),
     nrPieces(XMax, YMax, Expected),
     Count = Expected,
+    print_board(NewBoard),
     write('The '),
     write(X),
     write(' has won\n').
@@ -48,16 +49,6 @@ winner(pvp, NewBoard, X, Y) :-
     changeColor(X, NewX),
     run_game(pvp, NewBoard, NewX, Game2).
 
-winner(pvc, Board, Level, X, Y) :-
-    countCells(Board, X, Count),
-    length(Board, XMax),
-    nth1(1, Board, Temp),
-    length(Temp, YMax),
-    nrPieces(XMax, YMax, Expected),
-    Count \= Expected,
-    Game2 is Y + 1,
-    changeColor(X, NewX),
-    run_game(pvc, Board, Level, NewX, Game2).
 
 winner(pvc, Board, Level, X, Y) :-
     countCells(Board, X, Count),
@@ -66,23 +57,52 @@ winner(pvc, Board, Level, X, Y) :-
     length(Temp, YMax),
     nrPieces(XMax, YMax, Expected),
     Count = Expected,
+    print_board(Board),
     write('The '),
     write(X),
     write(' has won\n').
+
+winner(pvc, Board, Level, X, Y) :-
+    countCells(Board, X, Count),
+    length(Board, XMax),
+    nth1(1, Board, Temp),
+    length(Temp, YMax),
+    nrPieces(XMax, YMax, Expected),
+    Count < Expected,
+    Game2 is Y + 1,
+    changeColor(X, NewX),
+    run_game(pvc, Board, Level, NewX, Game2).
+
+winner(cvc, Board, Level1, Level2, X, Y) :-
+    countCells(Board, X, Count),
+    length(Board, XMax),
+    nth1(1, Board, Temp),
+    length(Temp, YMax),
+    nrPieces(XMax, YMax, Expected),
+    Count = Expected,
+    print_board(Board),
+    write('The '),
+    write(X),
+    write(' has won\n').
+
+winner(cvc, Board, Level1, Level2, X, Y) :-
+    countCells(Board, X, Count),
+    length(Board, XMax),
+    nth1(1, Board, Temp),
+    length(Temp, YMax),
+    nrPieces(XMax, YMax, Expected),
+    Count < Expected,
+    Game2 is Y + 1,
+    changeColor(X, NewX),
+    run_game(cvc, Board, Level1, Level2, NewX, Game2).
    
 
 
-pie_rule('y', State, Board, X) :-
+pie_rule('y', State, Board, X, NewBoard) :-
+    state \= pvp,
     findNonWhiteCell(Board, XReplace, YReplace),
-    replaceCell(Board, XReplace, YReplace, X, NewBoard),
-    changeColor(X, NewX),
-    run_game(State, NewBoard, NewX, 3).
+    replaceCell(Board, XReplace, YReplace, X, NewBoard).
 
-pie_rule('y', State, Board, X, Y) :-
-    findNonWhiteCell(Board, XReplace, YReplace),
-    replaceCell(Board, XReplace, YReplace, X, NewBoard),
-    changeColor(X, NewX),
-    run_game(State, NewBoard, Y, NewX, 3).
 
 pie_rule('n', pvp, _Board, X) :-
     repeat,
@@ -102,6 +122,12 @@ pie_rule('n', pvp, _Board, X) :-
           fail
         )
      ).
+
+pie_rule('y', pvp, Board, X) :-
+    findNonWhiteCell(Board, XReplace, YReplace),
+    replaceCell(Board, XReplace, YReplace, X, NewBoard),
+    changeColor(X, NewX),
+    run_game(pvp, NewBoard, NewX, 3).
 
 pie_rule('n', pvc, _Board, X, Y) :-
     repeat,
@@ -124,9 +150,8 @@ pie_rule('n', pvc, _Board, X, Y) :-
 
 
 run_game(pvc, _Board, Level, blue, Y) :-
-    Y \= 2,
     print_board(_Board),
-    botMove(_Board, blue, NewBoard, Level, 1),
+    botMove(pvc, _Board, blue, NewBoard, Level, 1),
     winner(pvc, NewBoard, Level, blue, Y).
 
 run_game(pvc, _Board, Level, red, Y) :-
@@ -154,27 +179,19 @@ run_game(pvc, _Board, Level, red, 2) :-
     print_board(_Board),
     write('Pie Rule (y/n): '),
     read_pie_rule(Rule),
-    pie_rule(Rule, pvc, _Board, red, Level).
-
-
-run_game(pvc, _Board, Level, blue, 2) :-
-    print_board(_Board),
-    botMove(_Board, blue, NewBoard, Level, 2),
-    run_game(pvc, NewBoard, Level, red, 3).
+    pie_rule(Rule, pvc, _Board, red, NewBoard),
+    run_game(pvc, NewBoard, Level, blue, 3).
 
 
 
 run_game(cvc, _Board, Level1, Level2, blue, Y) :-
     print_board(_Board),
-    botMove(_Board, blue, NewBoard,Level1, Y),
-    Y1 is Y + 1,
-    write('Cheguei Aqui!'),
-    run_game(cvc, NewBoard, Level1, Level2, red, Y1).
+    botMove(cvc, _Board, blue, NewBoard,Level1, Y),
+    winner(cvc, NewBoard, Level1, Level2, blue, Y).
 
 run_game(cvc, _Board, Level1, Level2, red, Y) :-
     print_board(_Board),
-    botMove(_Board, blue, NewBoard,Level1, Y),
-    Y1 is Y + 1,
-    run_game(cvc, NewBoard, Level1, Level2, blue, Y1).
+    botMove(cvc, _Board, red, NewBoard,Level2, Y),
+    winner(cvc, NewBoard, Level1, Level2, red, Y).
     
     

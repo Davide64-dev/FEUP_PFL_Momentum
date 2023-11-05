@@ -2,6 +2,7 @@
 % nrPieces(+Width, +Height, -NumberOfPieces)
 nrPieces(7, 7, 8).
 nrPieces(7, 9, 10).
+nrPieces(9, 7, 10).
 nrPieces(9, 9, 12).
 
 
