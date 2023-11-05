@@ -40,12 +40,16 @@ Depending on the game mode we can have
 To initiate the game, players are presented with the options to "Play," "View Rules," or "Exit." Selecting "Play" allows them to configure the game settings, which includes choosing the game mode (Human VS. Human, Human VS. Computer or Computer VS. Computer), followed by the game board size (7x7, 7x9 or 9x9).
 In Human VS. Human mode, the game commences after these choices. However, in the other modes, players further specify the level (Level 1 or Level 2) and determine which player starts the game.
 A possible interaction is represented in the image below.
-(**insert image 2**)
 
-In every option the input validation is secured. This happens not only on the menu options but in the input of the game play as well.
+![Alt text](img/menu_interaction.png)
 
-(**insert image 3**)
-(**insert image 4**)
+Then during the game, the state of the game is displayed by using a predicate `display_game` that prints the board
+
+![Alt text](img/board.png)
+
+For creating the initial state of the game, we have a predicate`initial_state` that creates the first board, the empty one.
+
+![Alt text](img/initial_state.png)
 
 
 - ### Move Validation and Execution
