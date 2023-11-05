@@ -1,43 +1,44 @@
 :- use_module(library(random)).
 
-easyBotMove(Board, BotColor, NewBoard) :-
-    % Find all empty cells on the board.
-    findEmptyCells(Board, EmptyCells),
+easyBotMove(Board, BotColor, NewBoard, 1) :-
+    repeat,
+    (
+        random(1, 8, Row),
+        random(1, 8, Column),
+        (
+          validate_move(Board, Row, Column) -> 
+          putPiece(Board, Row, Column, BotColor, NewBoard),
+          !; 
+          nl
+        )
+    ).
+
+easyBotMove(Board, BotColor, NewBoard, 2) :-
+    pie_rule('y', pvc, Board, BotColor, NewBoard).
+
+
+hardBotMove(Board, BotColor, NewBoard) :-
+    % Find all valid moves, sorted by distance from the center of the board.
+    ValidMoves = maplist(distance, Board, BotColor),
+    ksort(ValidMoves, [(BestDistance, _, _)|_]),
+
+    % Put a piece on the best move.
+    putPiece(BestDistance, Board, BotColor, NewBoard).
+
+distance(Board, Row, Column, Distance) :- distance_from_center(Row, Column, Distance), validate_move(Board, Row, Column).
+
+
+distance_from_center(Row, Column, Distance) :-
+    CenterRow is 4, % Assuming the center of the 8x8 board is at row 4
+    CenterColumn is 4, % Assuming the center of the 8x8 board is at column 4
+    Distance is abs(CenterRow - Row) + abs(CenterColumn - Column).
+
     
-    % If there are empty cells, choose one randomly and place the bot's piece.
-    (EmptyCells = [] ->
-        % If the board is full, return the same board.
-        NewBoard = Board;
-        random_member([X, Y], EmptyCells),
-        putPiece(_Board, Row, Column, X, NewBoard)
-    ).
+    
 
+botMove(Board, BotColor, NewBoard, '1', Y) :- Y\= 2, write('The bot is playing...\n'), easyBotMove(Board, BotColor, NewBoard, 1).
 
+botMove(Board, BotColor, NewBoard, '1', 2) :- random(1, 3, X), write('The bot is playing...\n'), easyBotMove(Board, BotColor, NewBoard, X).
 
-% Define the find_best_move predicate for the smart bot
-find_best_move(Board, SmartBotColor, Depth, BestMove) :-
-    findall(Move, valid_move(Board, Move), AvailableMoves),
-    best_move(Board, AvailableMoves, SmartBotColor, Depth, -9999, none, BestMove).
+botMove(Board, BotColor, NewBoard, '2', Y) :- write('The bot is playing...\n'), hardBotMove(Board, BotColor, NewBoard).
 
-
-% Main predicate for finding the best move
-best_move(_, [], _, _, BestScore, BestMove, BestMove) :- BestScore \= -9999.
-best_move(_, [], _, _, _, BestMove, BestMove).
-
-best_move(Board, [Move | RestMoves], SmartBotColor, Depth, CurrentBestScore, CurrentBestMove, BestMove) :-
-    make_move(Board, Move, SmartBotColor, NewBoard),
-    evaluate_board(NewBoard, SmartBotColor, Score),
-    (Depth > 0 ->
-        opponent_color(SmartBotColor, OpponentColor),
-        minimax(NewBoard, Depth, OpponentColor, ScoreDiff)
-    ; ScoreDiff = Score),
-    NewScore is Score - ScoreDiff,
-    (NewScore > CurrentBestScore ->
-        best_move(Board, RestMoves, SmartBotColor, Depth, NewScore, Move, BestMove)
-    ; best_move(Board, RestMoves, SmartBotColor, Depth, CurrentBestScore, CurrentBestMove, BestMove)
-    ).
-
-% Minimax search with alpha-beta pruning
-minimax(Board, Depth, Player, Score) :-
-    (Depth == 0 ; game_over(Board)),
-    evaluate_board(Board, Player, Score).

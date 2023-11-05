@@ -145,6 +145,9 @@ menu(pvp) :-
     run_game(pvp, _Board, blue, 1).
 
 
+decodeFirst('1', red).
+decodeFirst('2', blue).
+
 % Handle the menu option for Person vs. Computer (pvc)
 % menu(+Mode)
 menu(pvc) :-
@@ -157,7 +160,8 @@ menu(pvc) :-
     read_option(Level),
     print_plays_first,
     read_option(First),
-    run_game(pvc, _Board, Level, First, blue, 1).
+    decodeFirst(First, FirstReal),
+    run_game(pvc, _Board, Level, FirstReal, 1).
 
 
 % Handle the menu option for Computer vs. Computer (cvc)
@@ -172,8 +176,7 @@ menu(cvc) :-
     read_option(Level1),
     print_levels_menu,
     read_option(Level2),
-    run_game(cvc, _Board, Level1, Level2).
-
+    run_game(cvc, _Board, Level1, Level2, blue, 1).
 menu(exit).
 
 
