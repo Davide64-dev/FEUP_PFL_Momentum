@@ -64,14 +64,35 @@ replace([H|T], I, X, [H|R]) :-
     replace(T, I1, X, R).
     
 
-print_board([]).
+print_column_labels(0) :- write('|').
+
+print_column_labels(9) :-
+    write('  ABCDEFGHI \n'),
+    write(' -----------\n').
+
+
+print_column_labels(7) :-
+    write('  ABCDEFG \n'),
+    write(' ---------\n').
+
 
 print_board([Row | Rest]) :-
+    length(Row, Length),
+    print_column_labels(Length),
+    print_board_aux([Row | Rest], 0).
+
+
+
+print_board_aux([], _).
+
+print_board_aux([Row | Rest], Count) :-
+    write(Count),
+    Count1 is Count + 1,
     write('|'),
     print_row(Row),
     write('|'),
     nl,
-    print_board(Rest).
+    print_board_aux(Rest, Count1).
 
 print_row([]).
 
@@ -79,5 +100,6 @@ print_row([Cell | Rest]) :-
     board_color(Cell, X),
     write(X),
     print_row(Rest).
+
 
                  

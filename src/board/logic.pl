@@ -17,15 +17,14 @@ first_element([X|_], X).
 % Places a piece on the board
 % putPiece(+Board, +XCoordinate, +YCoordinate, +NewValue, -NewBoard)
 putPiece(Board, X, Y, NewCell, NewBoard) :-
-    length(Board, XMax),
+    length(Board, YMax),
     nth1(1, Board, Temp),
-    length(Temp, YMax),
+    length(Temp, XMax),
     
     X1 is X + 1,
     Y1 is Y + 1,
     X2 is X - 1,
     Y2 is Y - 1,
-    
     replaceCell(Board, X, Y, NewCell, Board1),
     pushPiece(Board1, X1, Y, 1, 0, Board2),
     pushPiece(Board2, X1, Y1, 1, 1, Board3),
@@ -35,17 +34,22 @@ putPiece(Board, X, Y, NewCell, NewBoard) :-
     pushPiece(Board6, X2, Y2, -1, -1, Board7),
     pushPiece(Board7, X, Y2, 0, -1, Board8),
     pushPiece(Board8, X1, Y2, 1, -1, Board9),
-    clearBoarders(Board9, XMax, YMax, NewBoard).
+    clearBoarders(Board9, XMax, YMax, NewBoard),
+    write('So far so good\n').
 
 validate_move(Board, X, Y) :-
-        length(Board, XMax),
+        length(Board, YMax),
         first_element(Board, Temp),
-        length(Temp, YMax),
+        length(Temp, XMax),
+        write(X),
+        write(XMax),
+        write(Y),
+        write(YMax),
         X > 0,
         X < XMax,
         Y > 0,
         Y < YMax,
-        get_cell(Board, X, Y, Cell),
+        get_cell(Board, Y, X, Cell),
         Cell == white.
 
 
@@ -87,10 +91,6 @@ countRows([Row|Rows], Color, Count) :-
 % Predicate to count the cells of a certain color
 countCells(Board, Color, Count) :-
     countRows(Board, Color, Count).
-
-
-
-
 
 
 pushPiece(Board, X, Y, IncX, IncY, Board) :-
@@ -139,10 +139,3 @@ clearColumn(Board, Column, Height, Start, NewBoard) :-
     Start1 is Start + 1,
     clearColumn(UpdatedBoard, Column, Height, Start1, NewBoard).
 
-init :- initialize_board(9, 9, _X),
-        putPiece(_X, 3, 3, blue, _Y),print_board(_Y), write('\n'),
-        putPiece(_Y, 2, 2, red,_Z), print_board(_Z), write('\n'),
-        putPiece(_Z, 3, 3, blue, _W), print_board(_W), write('\n'),
-        putPiece(_W, 2, 2, blue, _A),print_board(_A).
-
-init2 :- initialize_board(9, 9, X), putPiece(X, 3, 4, blue, Y), print_board(Y).

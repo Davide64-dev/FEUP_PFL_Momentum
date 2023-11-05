@@ -11,7 +11,7 @@ run_game(pvp, _Board, X, Y) :-
        read_row(RowString),
        row(RowString, Row),
        (
-          validate_move(_Board, Column, Row) -> 
+          validate_move(_Board, Column, Row) ->
           putPiece(_Board, Row, Column, X, NewBoard),
           write('\n'),
           winner(pvp, NewBoard, X, Y); 
