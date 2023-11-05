@@ -76,7 +76,7 @@ print_column_labels(7) :-
     write(' ---------\n').
 
 
-print_board([Row | Rest]) :-
+display_game([Row | Rest]) :-
     length(Row, Length),
     print_column_labels(Length),
     print_board_aux([Row | Rest], 0).

@@ -34,17 +34,12 @@ putPiece(Board, X, Y, NewCell, NewBoard) :-
     pushPiece(Board6, X2, Y2, -1, -1, Board7),
     pushPiece(Board7, X, Y2, 0, -1, Board8),
     pushPiece(Board8, X1, Y2, 1, -1, Board9),
-    clearBoarders(Board9, XMax, YMax, NewBoard),
-    write('So far so good\n').
+    clearBoarders(Board9, XMax, YMax, NewBoard).
 
 validate_move(Board, X, Y) :-
         length(Board, YMax),
         first_element(Board, Temp),
         length(Temp, XMax),
-        write(X),
-        write(XMax),
-        write(Y),
-        write(YMax),
         X > 0,
         X < XMax,
         Y > 0,

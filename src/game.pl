@@ -1,7 +1,7 @@
 
 run_game(pvp, _Board, X, Y) :-
     Y \= 2,
-    print_board(_Board),
+    display_game(_Board),
     repeat,
     (
        write('Enter column: '),
@@ -21,7 +21,7 @@ run_game(pvp, _Board, X, Y) :-
      ).
 
 run_game(pvp, _Board, X, 2) :-
-    print_board(_Board),
+    display_game(_Board),
     write('Pie Rule (y/n): '),
     read_pie_rule(Rule),
     pie_rule(Rule, pvp, _Board, X).
@@ -33,7 +33,7 @@ winner(pvp, NewBoard, X, Y) :-
     length(Temp, YMax),
     nrPieces(XMax, YMax, Expected),
     Count = Expected,
-    print_board(NewBoard),
+    display_game(NewBoard),
     write('The '),
     write(X),
     write(' has won\n').
@@ -57,7 +57,7 @@ winner(pvc, Board, Level, X, Y) :-
     length(Temp, YMax),
     nrPieces(XMax, YMax, Expected),
     Count = Expected,
-    print_board(Board),
+    display_game(Board),
     write('The '),
     write(X),
     write(' has won\n').
@@ -80,7 +80,7 @@ winner(cvc, Board, Level1, Level2, X, Y) :-
     length(Temp, YMax),
     nrPieces(XMax, YMax, Expected),
     Count = Expected,
-    print_board(Board),
+    display_game(Board),
     write('The '),
     write(X),
     write(' has won\n').
@@ -150,13 +150,13 @@ pie_rule('n', pvc, _Board, X, Y) :-
 
 
 run_game(pvc, _Board, Level, blue, Y) :-
-    print_board(_Board),
+    display_game(_Board),
     botMove(pvc, _Board, blue, NewBoard, Level, 1),
     winner(pvc, NewBoard, Level, blue, Y).
 
 run_game(pvc, _Board, Level, red, Y) :-
     Y \= 2,
-    print_board(_Board),
+    display_game(_Board),
     repeat,
     (
        write('Enter column: '),
@@ -176,7 +176,7 @@ run_game(pvc, _Board, Level, red, Y) :-
      ).
 
 run_game(pvc, _Board, Level, red, 2) :-
-    print_board(_Board),
+    display_game(_Board),
     write('Pie Rule (y/n): '),
     read_pie_rule(Rule),
     pie_rule(Rule, pvc, _Board, red, NewBoard),
@@ -185,12 +185,12 @@ run_game(pvc, _Board, Level, red, 2) :-
 
 
 run_game(cvc, _Board, Level1, Level2, blue, Y) :-
-    print_board(_Board),
+    display_game(_Board),
     botMove(cvc, _Board, blue, NewBoard,Level1, Y),
     winner(cvc, NewBoard, Level1, Level2, blue, Y).
 
 run_game(cvc, _Board, Level1, Level2, red, Y) :-
-    print_board(_Board),
+    display_game(_Board),
     botMove(cvc, _Board, red, NewBoard,Level2, Y),
     winner(cvc, NewBoard, Level1, Level2, red, Y).
     
