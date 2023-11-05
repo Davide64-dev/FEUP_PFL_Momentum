@@ -6,9 +6,12 @@
 
 
 ## Instalation and Execution
-To install the game it is necessary to download the PFL_TP1_T09_Momentum_1.zip and unzip it. Inside the src directory, we have the file play.pl which we have to consult and then start the game by running the predicate play/0.
+To install the game it is necessary to download the PFL_TP1_T09_Momentum_1.zip and unzip it. Inside the src directory, we have the file play.pl which we have to consult and then start the game by running the predicate play/0. To run the game, you can use the following commands:
 
-(**insert picture 1**) 
+```
+consult('play.pl').
+play.
+```
 
 ## Description of the game
 In Momentum, players take turns dropping one of their counters on an empty cell of the game board. After that, we check in all the cells in a straight line in the 8 directions adjacent (vertically, horizontally and diagonally) to the dropped counter. The last counter of each of those lines is pushed one cell away from the dropped counter in that direction. If counters are pushed to the margin of the game board, then they are returned to their owner. In order to win the game, one player has to have all of his counters on the board at the end of his play.
@@ -20,6 +23,17 @@ The rules of the game were obtained from (**insert names**)
 
 
 - ### Internal Game State Representation
+
+The Game State is represented by several parameters, such as:
+
+- The Board game, it is maybe the most important piece of the game,
+- The User that is playing (red or blue). The game always starts with the blue color.
+- The round that is taking place
+
+Depending on the game mode we can have
+
+- The level(s) of the bot.
+- Who plays first (in case of player vs computer)
 
 
 - ### Game State Visualization
