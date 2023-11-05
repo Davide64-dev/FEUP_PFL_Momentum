@@ -34,7 +34,6 @@ In every option the input validation is secured. This happens not only on the me
 (**insert image 4**)
 
 
-
 - ### Move Validation and Execution
 
 
@@ -53,9 +52,14 @@ The game concludes when one of the players successfully places all of their coun
 
 
 - ### Computer plays
-
+    In the terms of the computer plays we used two strategies:
+    - random, when playing in level 1, that as the name says, it chooses random values for the column and the row and checks if the move is valid.
+        (**insert image of easy bot**)
+    - greedy, when playing in level 2,  
 
 ## Conclusions
-
+The game was developed with three distinct modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer), along with three different board sizes (7x7, 7x9, and 9x9). The modes involving the Computer come with two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is rigorously validated to ensure a smooth gaming experience.
+The biggest difficulty was (**insert difficulty**)
+The project provided a valuable opportunity to solidify our understanding of the concepts learned in our classes.
 
 ## Bibliography
