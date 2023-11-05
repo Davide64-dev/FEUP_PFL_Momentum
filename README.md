@@ -6,7 +6,7 @@
 
 
 ## Instalation and Execution
-To install the game it is necessary to download the PFL_TP1_T09_Momentum_1.zip and unzip it. Inside the src directory, we have the file menu.pl which we have to consult and then start the game by running the predicate play/0.
+To install the game it is necessary to download the PFL_TP1_T09_Momentum_1.zip and unzip it. Inside the src directory, we have the file play.pl which we have to consult and then start the game by running the predicate play/0.
 
 (**insert picture 1**) 
 
