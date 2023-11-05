@@ -6,7 +6,7 @@
 
 
 ## Instalation and Execution
-To install the game it is necessary to download the PFL_TP1_T09_Momentum_1.zip and unzip it. Inside the src directory, we have the file play.pl which we have to consult and then start the game by running the predicate play/0. To run the game, you can use the following commands:
+To install the game, download the PFL_TP1_T09_Momentum_1.zip file and unzip it. Inside the 'src' directory, locate the 'play.pl' file, consult it, and start the game by executing the predicate play/0. You can use the following commands to run the game:
 
 ```
 consult('play.pl').
@@ -14,46 +14,38 @@ play.
 ```
 
 ## Description of the game
-In [Momentum](https://boardgamegeek.com/boardgame/73091/momentum/files), players take turns dropping one of their counters on an empty cell of the game board. After that, we check in all the cells in a straight line in the 8 directions adjacent (vertically, horizontally and diagonally) to the dropped counter. The last counter of each of those lines is pushed one cell away from the dropped counter in that direction. If counters are pushed to the margin of the game board, then they are returned to their owner. In order to win the game, one player has to have all of his counters on the board at the end of his play.
-During the second player's first turn in every game, they have the option to either place their counter on the board or swap out the counter that the first player placed with one of their own. If they choose to switch, the first player's counter is returned to them to be dropped again.
-Additionally, the game offers three different board sizes: 7x7, 7x9, and 9x9. The number of counters allocated to each player varies according to the board size, with players receiving 8, 10, or 12 counters, respectively.
-The rules of the game were obtained from (**insert names**)
+[Momentum](https://boardgamegeek.com/boardgame/73091/momentum/files) is a game where players take turns placing their counters on an empty cell of the game board. After placing a counter, it pushes the last counter in all the straight lines in the 8 adjacent directions (vertical, horizontal, and diagonal) away from it. If the counters are pushed to the edge of the board, they are returned to their respective owners. The aim of the game is to have all of one's counters on the board at the end of their turn to win. The game supports three different board sizes: 7x7, 7x9, and 9x9. The number of counters allocated to each player varies based on the board size.
 
 ## Game Logic
 
 
 - ### Internal Game State Representation
 
-The Game State is represented by several parameters, such as:
+The game state is represented by several parameters, including:
 
-- The Board game, it is maybe the most important piece of the game,
-- The User that is playing (red or blue). The game always starts with the blue color.
-- The round that is taking place
+- The game board, which is a pivotal component of the game.
+- The current player (red or blue). The game always starts with the blue player.
+- The current round of the game.
 
-Depending on the game mode we can have
+Depending on the game mode, additional parameters might include:
 
 - The level(s) of the bot.
-- Who plays first (in case of player vs computer)
+- Who plays first (in the case of player vs. computer).
 
 
 - ### Game State Visualization
-To initiate the game, players are presented with the options to "Play," "View Rules," or "Exit." Selecting "Play" allows them to configure the game settings, which includes choosing the game mode (Human VS. Human, Human VS. Computer or Computer VS. Computer), followed by the game board size (7x7, 7x9 or 9x9).
-In Human VS. Human mode, the game commences after these choices. However, in the other modes, players further specify the level (Level 1 or Level 2) and determine which player starts the game.
-A possible interaction is represented in the image below.
+- 
+At the beginning of the game, players are presented with options to "Play," "View Rules," or "Exit." Selecting "Play" allows them to configure the game settings, including the game mode (Human VS. Human, Human VS. Computer, or Computer VS. Computer) and the game board size (7x7, 7x9, or 9x9). In the Human VS. Human mode, the game commences after these choices. In other modes, players can specify the difficulty level (Level 1 or Level 2) and determine which player starts the game. An example interaction is demonstrated in the image below.
 
 <p align="center">
   <img src="img/menu_interaction.png" />
 </p>
-
-Then during the game, the state of the game is displayed by using a predicate `display_game` that prints the board
-
+During the game, the current state of the game is displayed using the display_game predicate, which prints the current state of the board.
 
 <p align="center">
   <img src="img/board.png" width = 200 />
 </p>
-
-
-For creating the initial state of the game, we have a predicate`initial_state` that creates the first board, the empty one.
+To create the initial state of the game, the initial_state predicate is used, which generates an empty board.
 
 <p align="center">
   <img src="img/initial_state.png" width = 500 />
@@ -62,7 +54,7 @@ For creating the initial state of the game, we have a predicate`initial_state` t
 
 - ### Move Validation and Execution
 
-When executing a move, it is necessary to garantee that that move is valid in the conext of that game state and the rules. With that we implemented a predicate `initial_state` taht is responsible for doing that validation. The rules says that every time a user wans to put a cell, that cell must be empty, represented in our game as `white` and that it cannot be on the boarders of the board, with that in mind, this predicate was created
+When making a move, it is essential to ensure that the move is valid within the context of the current game state and rules. To accomplish this, the validate_move predicate is employed. According to the rules, the cell a player wants to place a counter must be empty (represented as 'white' in our game) and cannot be on the board's edges.
 
 <p align="center">
   <img src="img/validate_move.png" width = 500/>
@@ -70,24 +62,23 @@ When executing a move, it is necessary to garantee that that move is valid in th
 
 - ### List of Valid Moves
 
-With that, a predicate called `valid_moves`was created that has the only purpose to, inside of the board, return a list of all possible cells where a user can put his piece.
+The valid_moves predicate is responsible for generating a list of all possible cells where a player can place their counter.
 
 - ### End of Game
-The game concludes when one of the players successfully places all of their counters on the game board. To determine this, a count of the counters within the board is performed after each move. If the count matches the total number of counters that each player initially possessed, than the player won the game. That is represented with the predicate `game_over` which verifies, as the rules said, after each round where a user puts a cell, verifies if that user has already all of his cells in the board. If yes, the game finishes and that user is the winner, if not, the game continues.
+- 
+The game concludes when one of the players successfully places all of their counters on the game board. This is determined by counting the number of counters on the board after each move. If the count matches the total number of counters initially allocated to each player, the player wins. This is represented by the game_over predicate, which verifies, after each turn, if a player has all their counters on the board. If so, the game ends, and that player is declared the winner.
 
 - ### Game State Evaluation
 
-The game state is evaluated with a apremeter that counts the round number of the game.
+The game state is evaluated based on the current round number.
 
 - ### Computer plays
-    In the terms of the computer plays we used two strategies:
-    - random, when playing in level 1, that as the name says, it chooses random values for the column and the row and checks if the move is valid. 
-    - greedy, when playing in level 2.
+  For the computer's moves, two strategies are employed:
+    - random moves in level 1, where the computer chooses random values for the column and row and checks if the move is valid.
+    - Greedy moves in level 2.
 
 ## Conclusions
-The game was developed with three distinct modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer), along with three different board sizes (7x7, 7x9, and 9x9). The modes involving the Computer come with two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is rigorously validated to ensure a smooth gaming experience.
-The biggest difficulty was the code organization, which is the feature that obviously could be imporved.
-The project provided a valuable opportunity to solidify our understanding of the concepts learned in our classes about Logical Porgramming.
+The game was developed with three different modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer) and supports three distinct board sizes (7x7, 7x9, and 9x9). The modes involving the computer offer two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is thoroughly validated to ensure a smooth gaming experience. The main challenge encountered was organizing the code, which is a feature that can be improved. Overall, the project provided a valuable opportunity to solidify our understanding of the logical programming concepts learned in class.
 
 ## Bibliography
 
