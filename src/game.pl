@@ -1,4 +1,5 @@
-
+% Run the game depending on the chosen mode
+% run_game(+Mode, +Board, +Color, +Play) 
 run_game(pvp, _Board, X, Y) :-
     Y \= 2,
     display_game(_Board),
@@ -26,6 +27,9 @@ run_game(pvp, _Board, X, 2) :-
     read_pie_rule(Rule),
     pie_rule(Rule, pvp, _Board, X).
 
+
+% Handle when the game ends depending on the mode
+% game_over (+Mode, +NewBoard, +Color, +Play)
 game_over(pvp, NewBoard, X, Y) :-
     countCells(NewBoard, X, Count),
     length(NewBoard, XMax),
@@ -50,6 +54,8 @@ game_over(pvp, NewBoard, X, Y) :-
     run_game(pvp, NewBoard, NewX, Game2).
 
 
+% Handle when the game ends depending on the mode and level
+% game_over (+Mode, +NewBoard, +Level, +Color, +Play)
 game_over(pvc, Board, Level, X, Y) :-
     countCells(Board, X, Count),
     length(Board, XMax),
@@ -73,6 +79,9 @@ game_over(pvc, Board, Level, X, Y) :-
     changeColor(X, NewX),
     run_game(pvc, Board, Level, NewX, Game2).
 
+
+% Handle when the game ends depending on the mode and the levels of the computers
+% game_over (+Mode, +NewBoard, +Level1, +Level2, +Color, +Play)
 game_over(cvc, Board, Level1, Level2, X, Y) :-
     countCells(Board, X, Count),
     length(Board, XMax),
@@ -97,13 +106,16 @@ game_over(cvc, Board, Level1, Level2, X, Y) :-
     run_game(cvc, Board, Level1, Level2, NewX, Game2).
    
 
-
+% Perform the pie rule 
+% pie_rule(+Choice, +State, +Board, +X, -NewBoard)
 pie_rule('y', State, Board, X, NewBoard) :-
     state \= pvp,
     findNonWhiteCell(Board, XReplace, YReplace),
     replaceCell(Board, XReplace, YReplace, X, NewBoard).
 
 
+% Perform the pie rule depending on the mode
+% pie_rule(+Choice, +State, +Board, +X)
 pie_rule('n', pvp, _Board, X) :-
     repeat,
     (
@@ -149,6 +161,8 @@ pie_rule('n', pvc, _Board, X, Y) :-
      ).
 
 
+% Run the game depending on the chosen mode and level
+% run_game(+Mode, +Board, +Level, +Color, +Play) 
 run_game(pvc, _Board, Level, blue, Y) :-
     display_game(_Board),
     choose_move(pvc, _Board, blue, NewBoard, Level, 1),
@@ -183,7 +197,8 @@ run_game(pvc, _Board, Level, red, 2) :-
     run_game(pvc, NewBoard, Level, blue, 3).
 
 
-
+% Run the game depending on the chosen mode and levels of the computers
+% run_game(+Mode, +Board, +Color, +Level1, +Level2, +Play) 
 run_game(cvc, _Board, Level1, Level2, blue, Y) :-
     display_game(_Board),
     choose_move(cvc, _Board, blue, NewBoard,Level1, Y),
