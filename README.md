@@ -14,7 +14,7 @@ play.
 ```
 
 ## Description of the game
-In Momentum, players take turns dropping one of their counters on an empty cell of the game board. After that, we check in all the cells in a straight line in the 8 directions adjacent (vertically, horizontally and diagonally) to the dropped counter. The last counter of each of those lines is pushed one cell away from the dropped counter in that direction. If counters are pushed to the margin of the game board, then they are returned to their owner. In order to win the game, one player has to have all of his counters on the board at the end of his play.
+In [Momentum](https://boardgamegeek.com/boardgame/73091/momentum/files), players take turns dropping one of their counters on an empty cell of the game board. After that, we check in all the cells in a straight line in the 8 directions adjacent (vertically, horizontally and diagonally) to the dropped counter. The last counter of each of those lines is pushed one cell away from the dropped counter in that direction. If counters are pushed to the margin of the game board, then they are returned to their owner. In order to win the game, one player has to have all of his counters on the board at the end of his play.
 During the second player's first turn in every game, they have the option to either place their counter on the board or swap out the counter that the first player placed with one of their own. If they choose to switch, the first player's counter is returned to them to be dropped again.
 Additionally, the game offers three different board sizes: 7x7, 7x9, and 9x9. The number of counters allocated to each player varies according to the board size, with players receiving 8, 10, or 12 counters, respectively.
 The rules of the game were obtained from (**insert names**)
@@ -77,7 +77,12 @@ The game state is evaluated with a apremeter that counts the round number of the
 
 ## Conclusions
 The game was developed with three distinct modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer), along with three different board sizes (7x7, 7x9, and 9x9). The modes involving the Computer come with two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is rigorously validated to ensure a smooth gaming experience.
-The biggest difficulty was (**insert difficulty**)
-The project provided a valuable opportunity to solidify our understanding of the concepts learned in our classes.
+The biggest difficulty was the code organization, which is the feature that obviously could be imporved.
+The project provided a valuable opportunity to solidify our understanding of the concepts learned in our classes about Logical Porgramming.
 
 ## Bibliography
+
+[Sicstus Prolog Homepage](https://sicstus.sics.se/documentation.html)
+
+[Momentum Board Game Page](https://boardgamegeek.com/boardgame/73091/momentum)
+
