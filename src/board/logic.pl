@@ -16,7 +16,7 @@ first_element([X|_], X).
 
 % Places a piece on the board
 % putPiece(+Board, +XCoordinate, +YCoordinate, +NewValue, -NewBoard)
-putPiece(Board, X, Y, NewCell, NewBoard) :-
+move(Board, X, Y, NewCell, NewBoard) :-
     length(Board, YMax),
     nth1(1, Board, Temp),
     length(Temp, XMax),

@@ -6,7 +6,7 @@ easyBotMove(State, Board, BotColor, NewBoard, 1) :-
         random(1, 8, Row),
         random(1, 8, Column),
         validate_move(Board, Row, Column),
-        putPiece(Board, Row, Column, BotColor, NewBoard)
+        move(Board, Row, Column, BotColor, NewBoard)
     ).
 
 easyBotMove(State, Board, BotColor, NewBoard, 2) :-
@@ -19,10 +19,10 @@ hardBotMove(Board, BotColor, NewBoard) :-
         random(1, 8, Row),
         random(1, 8, Column),
         validate_move(Board, Row, Column),
-        putPiece(Board, Row, Column, BotColor, TempBoard),
+        move(Board, Row, Column, BotColor, TempBoard),
         countCells(TempBoard, BotColor, Temp),
         Temp > Reference,
-        putPiece(Board, Row, Column, BotColor, NewBoard)
+        move(Board, Row, Column, BotColor, NewBoard)
     ).
 
 

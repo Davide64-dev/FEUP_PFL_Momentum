@@ -12,9 +12,9 @@ run_game(pvp, _Board, X, Y) :-
        row(RowString, Row),
        (
           validate_move(_Board, Column, Row) ->
-          putPiece(_Board, Row, Column, X, NewBoard),
+          move(_Board, Row, Column, X, NewBoard),
           write('\n'),
-          winner(pvp, NewBoard, X, Y); 
+          game_over(pvp, NewBoard, X, Y); 
           write('Invalid move, please try again.'), nl,
           fail
         )
@@ -26,7 +26,7 @@ run_game(pvp, _Board, X, 2) :-
     read_pie_rule(Rule),
     pie_rule(Rule, pvp, _Board, X).
 
-winner(pvp, NewBoard, X, Y) :-
+game_over(pvp, NewBoard, X, Y) :-
     countCells(NewBoard, X, Count),
     length(NewBoard, XMax),
     nth1(1, NewBoard, Temp),
@@ -38,7 +38,7 @@ winner(pvp, NewBoard, X, Y) :-
     write(X),
     write(' has won\n').
 
-winner(pvp, NewBoard, X, Y) :-
+game_over(pvp, NewBoard, X, Y) :-
     countCells(NewBoard, X, Count),
     length(NewBoard, XMax),
     nth1(1, NewBoard, Temp),
@@ -50,7 +50,7 @@ winner(pvp, NewBoard, X, Y) :-
     run_game(pvp, NewBoard, NewX, Game2).
 
 
-winner(pvc, Board, Level, X, Y) :-
+game_over(pvc, Board, Level, X, Y) :-
     countCells(Board, X, Count),
     length(Board, XMax),
     nth1(1, Board, Temp),
@@ -62,7 +62,7 @@ winner(pvc, Board, Level, X, Y) :-
     write(X),
     write(' has won\n').
 
-winner(pvc, Board, Level, X, Y) :-
+game_over(pvc, Board, Level, X, Y) :-
     countCells(Board, X, Count),
     length(Board, XMax),
     nth1(1, Board, Temp),
@@ -73,7 +73,7 @@ winner(pvc, Board, Level, X, Y) :-
     changeColor(X, NewX),
     run_game(pvc, Board, Level, NewX, Game2).
 
-winner(cvc, Board, Level1, Level2, X, Y) :-
+game_over(cvc, Board, Level1, Level2, X, Y) :-
     countCells(Board, X, Count),
     length(Board, XMax),
     nth1(1, Board, Temp),
@@ -85,7 +85,7 @@ winner(cvc, Board, Level1, Level2, X, Y) :-
     write(X),
     write(' has won\n').
 
-winner(cvc, Board, Level1, Level2, X, Y) :-
+game_over(cvc, Board, Level1, Level2, X, Y) :-
     countCells(Board, X, Count),
     length(Board, XMax),
     nth1(1, Board, Temp),
@@ -115,7 +115,7 @@ pie_rule('n', pvp, _Board, X) :-
        row(RowString, Row),
        (
           validate_move(_Board, Column, Row) -> 
-          putPiece(_Board, Row, Column, X, NewBoard),
+          move(_Board, Row, Column, X, NewBoard),
           changeColor(X, NewX),
           run_game(pvp, NewBoard, NewX, 3); 
           write('Invalid move, please try again.'), nl,
@@ -140,7 +140,7 @@ pie_rule('n', pvc, _Board, X, Y) :-
        row(RowString, Row),
        (
           validate_move(_Board, Column, Row) -> 
-          putPiece(_Board, Row, Column, X, NewBoard),
+          move(_Board, Row, Column, X, NewBoard),
           changeColor(X, NewX),
           run_game(pvc, NewBoard, Y, NewX, 3); 
           write('Invalid move, please try again.'), nl,
@@ -152,7 +152,7 @@ pie_rule('n', pvc, _Board, X, Y) :-
 run_game(pvc, _Board, Level, blue, Y) :-
     display_game(_Board),
     botMove(pvc, _Board, blue, NewBoard, Level, 1),
-    winner(pvc, NewBoard, Level, blue, Y).
+    game_over(pvc, NewBoard, Level, blue, Y).
 
 run_game(pvc, _Board, Level, red, Y) :-
     Y \= 2,
@@ -167,9 +167,9 @@ run_game(pvc, _Board, Level, red, Y) :-
        row(RowString, Row),
        (
           validate_move(_Board, Column, Row) -> 
-          putPiece(_Board, Row, Column, X, NewBoard),
+          move(_Board, Row, Column, X, NewBoard),
           write('\n'),
-          winner(pvc, NewBoard, Level, red, Y); 
+          game_over(pvc, NewBoard, Level, red, Y); 
           write('Invalid move, please try again.'), nl,
           fail
         )
@@ -187,11 +187,11 @@ run_game(pvc, _Board, Level, red, 2) :-
 run_game(cvc, _Board, Level1, Level2, blue, Y) :-
     display_game(_Board),
     botMove(cvc, _Board, blue, NewBoard,Level1, Y),
-    winner(cvc, NewBoard, Level1, Level2, blue, Y).
+    game_over(cvc, NewBoard, Level1, Level2, blue, Y).
 
 run_game(cvc, _Board, Level1, Level2, red, Y) :-
     display_game(_Board),
     botMove(cvc, _Board, red, NewBoard,Level2, Y),
-    winner(cvc, NewBoard, Level1, Level2, red, Y).
+    game_over(cvc, NewBoard, Level1, Level2, red, Y).
     
     
