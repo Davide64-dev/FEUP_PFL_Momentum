@@ -43,10 +43,11 @@ A possible interaction is represented in the image below.
 
 ![Alt text](img/menu_interaction.png)
 
-Then during the game, the state of the game is displayed by using a predicate "display_game" that prints the board
+Then during the game, the state of the game is displayed by using a predicate `display_game` that prints the board
 
-(**insert image 3**)
-(**insert image 4**)
+![Alt text](img/board.png)
+
+For creating the initial state of the game, we have a predicate`initial_state` that creates the first board, the empty one.
 
 
 - ### Move Validation and Execution
