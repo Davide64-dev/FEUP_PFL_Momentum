@@ -52,6 +52,14 @@ get_cell(Board, X, Y, Cell) :-
     nth0(Y, Row, Cell).
 
 
+valid_moves(Matrix, ValidPairs) :-
+    findall((X, Y), (
+        nth0(X, Matrix, Row), 
+        nth0(Y, Row, _),
+        validate_move(Matrix, X, Y)
+    ), ValidPairs).
+
+
 replaceCell(Board, X, Y, NewCell, NewBoard) :-
     nth0(X, Board, Row),
     replace(Row, Y, NewCell, NewRow),
