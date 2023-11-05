@@ -49,6 +49,8 @@ Then during the game, the state of the game is displayed by using a predicate `d
 
 For creating the initial state of the game, we have a predicate`initial_state` that creates the first board, the empty one.
 
+![Alt text](img/initial_state.png)
+
 
 - ### Move Validation and Execution
 
