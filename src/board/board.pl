@@ -28,17 +28,17 @@ board_color(blue, 'B').
 board_color(white, ' ').
 board_color(red, 'R').
 
-initialize_board(Board) :-
+initial_state(Board) :-
     board_size(Size),
-    initialize_board(Size, Size, Board).
+    initial_state(Size, Size, Board).
 
-initialize_board(0, _, []).
+initial_state(0, _, []).
 
-initialize_board(Rows, Cols, [Row | Rest]) :-
+initial_state(Rows, Cols, [Row | Rest]) :-
     Rows > 0,
     initialize_row(Cols, Row),
     NextRows is Rows - 1,
-    initialize_board(NextRows, Cols, Rest).
+    initial_state(NextRows, Cols, Rest).
 
 initialize_row(0, []).
 

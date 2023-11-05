@@ -141,7 +141,7 @@ menu(pvp) :-
     read_option(Temp),
     numToBoard(Temp, Temp1),
     board_dimensions(Temp1, Width, Height),
-    initialize_board(Width, Height, _Board),
+    initial_state(Width, Height, _Board),
     run_game(pvp, _Board, blue, 1).
 
 
@@ -155,7 +155,7 @@ menu(pvc) :-
     read_option(Temp),
     numToBoard(Temp, Temp1),
     board_dimensions(Temp1, Width, Height),
-    initialize_board(Width, Height, _Board),
+    initial_state(Width, Height, _Board),
     print_levels_menu,
     read_option(Level),
     print_plays_first,
@@ -171,7 +171,7 @@ menu(cvc) :-
     read_option(Temp),
     numToBoard(Temp, Temp1),
     board_dimensions(Temp1, Width, Height),
-    initialize_board(Width, Height, _Board),
+    initial_state(Width, Height, _Board),
     print_levels_menu,
     read_option(Level1),
     print_levels_menu,
