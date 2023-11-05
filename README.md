@@ -41,23 +41,32 @@ To initiate the game, players are presented with the options to "Play," "View Ru
 In Human VS. Human mode, the game commences after these choices. However, in the other modes, players further specify the level (Level 1 or Level 2) and determine which player starts the game.
 A possible interaction is represented in the image below.
 
-![Alt text](img/menu_interaction.png)
+<p align="center">
+  <img src="img/menu_interaction.png" />
+</p>
 
 Then during the game, the state of the game is displayed by using a predicate `display_game` that prints the board
 
-![Alt text](img/board.png)
+
+<p align="center">
+  <img src="img/board.png" width = 200 />
+</p>
+
 
 For creating the initial state of the game, we have a predicate`initial_state` that creates the first board, the empty one.
 
-![Alt text](img/initial_state.png)
+<p align="center">
+  <img src="img/initial_state.png" width = 500 />
+</p>
 
 
 - ### Move Validation and Execution
 
 When executing a move, it is necessary to garantee that that move is valid in the conext of that game state and the rules. With that we implemented a predicate `initial_state` taht is responsible for doing that validation. The rules says that every time a user wans to put a cell, that cell must be empty, represented in our game as `white` and that it cannot be on the boarders of the board, with that in mind, this predicate was created
 
-![Alt text](img/validate_move.png)
-
+<p align="center">
+  <img src="img/validate_move.png" width = 500/>
+</p>
 
 - ### List of Valid Moves
 
