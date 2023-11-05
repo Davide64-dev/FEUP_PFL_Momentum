@@ -64,6 +64,10 @@ When making a move, it is essential to ensure that the move is valid within the 
 
 The valid_moves predicate is responsible for generating a list of all possible cells where a player can place their counter.
 
+<p align="center">
+  <img src="img/valid_moves.png" />
+</p>
+
 - ### End of Game
 
 The game concludes when one of the players successfully places all of their counters on the game board. This is determined by counting the number of counters on the board after each move. If the count matches the total number of counters initially allocated to each player, the player wins. This is represented by the game_over predicate, which verifies, after each turn, if a player has all their counters on the board. If so, the game ends, and that player is declared the winner.
