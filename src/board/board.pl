@@ -1,5 +1,3 @@
-:- use_module(library(lists)).
-
 column('A', 0).
 column('B', 1).
 column('C', 2).

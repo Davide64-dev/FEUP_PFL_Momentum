@@ -1,5 +1,3 @@
-:- use_module(library(random)).
-
 easyBotMove(State, Board, BotColor, NewBoard, 1) :-
     repeat,
     (
@@ -30,5 +28,5 @@ choose_move(State, Board, BotColor, NewBoard, '1', Y) :- Y\= 2, write('The bot i
 
 choose_move(State, Board, BotColor, NewBoard, '1', 2) :- random(1, 3, X), write('The bot is playing...\n'), easyBotMove(State, Board, BotColor, NewBoard, X).
 
-choose_move(State, Board, BotColor, NewBoard, '2', Y) :- write('The hard bot is playing...\n'), hardBotMove(Board, BotColor, NewBoard).
+choose_move(State, Board, BotColor, NewBoard, '2', Y) :- write('The bot is playing...\n'), hardBotMove(Board, BotColor, NewBoard).
 

@@ -1,9 +1,3 @@
-:-consult('io.pl').
-:-consult('board/board.pl').
-:-consult('game.pl').
-:-consult('board/logic.pl').
-:-consult('bot.pl').
-
 % Displays the game title
 print_title :-
     write('\t  __    __     ______     __    __     _______     ___    __     ___________     __    __     __    __ \n'),
@@ -182,7 +176,3 @@ menu(exit) :-
     write('\n'),
     write('Goodbye!\n').
 
-
-% Starts the game
-play :-
-    run_menu.
