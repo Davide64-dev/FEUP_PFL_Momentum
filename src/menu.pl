@@ -176,6 +176,8 @@ menu(cvc) :-
 
 menu(exit).
 
+
+% Starts the game
 play :-
     run_menu,
     clear_data.
