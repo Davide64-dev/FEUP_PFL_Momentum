@@ -27,6 +27,55 @@ run_game(pvp, _Board, X, 2) :-
     read_pie_rule(Rule),
     pie_rule(Rule, pvp, _Board, X).
 
+% Run the game depending on the chosen mode and level
+% run_game(+Mode, +Board, +Level, +Color, +Play) 
+run_game(pvc, _Board, Level, blue, Y) :-
+    display_game(_Board),
+    choose_move(pvc, _Board, blue, NewBoard, Level, 1),
+    game_over(pvc, NewBoard, Level, blue, Y).
+
+run_game(pvc, _Board, Level, red, Y) :-
+    Y \= 2,
+    display_game(_Board),
+    repeat,
+    (
+       write('Enter column: '),
+       read_column(ColumnString),
+       column(ColumnString, Column),
+       write('Enter row: '),
+       read_row(RowString),
+       row(RowString, Row),
+       (
+          validate_move(_Board, Column, Row) -> 
+          move(_Board, Row, Column, X, NewBoard),
+          write('\n'),
+          game_over(pvc, NewBoard, Level, red, Y); 
+          write('Invalid move, please try again.'), nl,
+          fail
+        )
+     ).
+
+run_game(pvc, _Board, Level, red, 2) :-
+    display_game(_Board),
+    write('Pie Rule (y/n): '),
+    read_pie_rule(Rule),
+    pie_rule(Rule, pvc, _Board, red, NewBoard),
+    run_game(pvc, NewBoard, Level, blue, 3).
+
+
+% Run the game depending on the chosen mode and levels of the computers
+% run_game(+Mode, +Board, +Color, +Level1, +Level2, +Play) 
+run_game(cvc, _Board, Level1, Level2, blue, Y) :-
+    display_game(_Board),
+    choose_move(cvc, _Board, blue, NewBoard,Level1, Y),
+    game_over(cvc, NewBoard, Level1, Level2, blue, Y).
+
+run_game(cvc, _Board, Level1, Level2, red, Y) :-
+    display_game(_Board),
+    choose_move(cvc, _Board, red, NewBoard,Level2, Y),
+    game_over(cvc, NewBoard, Level1, Level2, red, Y).
+
+
 
 % Handle when the game ends depending on the mode
 % game_over (+Mode, +NewBoard, +Color, +Play)
@@ -159,54 +208,3 @@ pie_rule('n', pvc, _Board, X, Y) :-
           fail
         )
      ).
-
-
-% Run the game depending on the chosen mode and level
-% run_game(+Mode, +Board, +Level, +Color, +Play) 
-run_game(pvc, _Board, Level, blue, Y) :-
-    display_game(_Board),
-    choose_move(pvc, _Board, blue, NewBoard, Level, 1),
-    game_over(pvc, NewBoard, Level, blue, Y).
-
-run_game(pvc, _Board, Level, red, Y) :-
-    Y \= 2,
-    display_game(_Board),
-    repeat,
-    (
-       write('Enter column: '),
-       read_column(ColumnString),
-       column(ColumnString, Column),
-       write('Enter row: '),
-       read_row(RowString),
-       row(RowString, Row),
-       (
-          validate_move(_Board, Column, Row) -> 
-          move(_Board, Row, Column, X, NewBoard),
-          write('\n'),
-          game_over(pvc, NewBoard, Level, red, Y); 
-          write('Invalid move, please try again.'), nl,
-          fail
-        )
-     ).
-
-run_game(pvc, _Board, Level, red, 2) :-
-    display_game(_Board),
-    write('Pie Rule (y/n): '),
-    read_pie_rule(Rule),
-    pie_rule(Rule, pvc, _Board, red, NewBoard),
-    run_game(pvc, NewBoard, Level, blue, 3).
-
-
-% Run the game depending on the chosen mode and levels of the computers
-% run_game(+Mode, +Board, +Color, +Level1, +Level2, +Play) 
-run_game(cvc, _Board, Level1, Level2, blue, Y) :-
-    display_game(_Board),
-    choose_move(cvc, _Board, blue, NewBoard,Level1, Y),
-    game_over(cvc, NewBoard, Level1, Level2, blue, Y).
-
-run_game(cvc, _Board, Level1, Level2, red, Y) :-
-    display_game(_Board),
-    choose_move(cvc, _Board, red, NewBoard,Level2, Y),
-    game_over(cvc, NewBoard, Level1, Level2, red, Y).
-    
-    

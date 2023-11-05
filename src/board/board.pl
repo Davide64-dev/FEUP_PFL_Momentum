@@ -38,7 +38,7 @@ board_color(red, 'R').
 
 
 % Define the initial state of the board
-% initial_state(+Board)
+% initial_state(-Board)
 initial_state(Board) :-
     board_size(Size),
     initial_state(Size, Size, Board).

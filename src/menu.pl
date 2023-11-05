@@ -1,3 +1,9 @@
+% Maps the user's choice for who plays first to the corresponding player color.
+% decodeFirst(+Choice, -Color)
+decodeFirst('1', red).
+decodeFirst('2', blue).
+
+
 % Display the game title
 % print_title/0
 print_title :-
@@ -153,12 +159,6 @@ menu(pvp) :-
     board_dimensions(Temp1, Width, Height),
     initial_state(Width, Height, _Board),
     run_game(pvp, _Board, blue, 1).
-
-
-% Maps the user's choice for who plays first to the corresponding player color.
-% decodeFirst(+Choice, -Color)
-decodeFirst('1', red).
-decodeFirst('2', blue).
 
 
 % Handle the menu option for Person vs. Computer (pvc)
