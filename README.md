@@ -70,7 +70,12 @@ The valid_moves predicate is responsible for generating a list of all possible c
 
 - ### End of Game
 
-The game concludes when one of the players successfully places all of their counters on the game board. This is determined by counting the number of counters on the board after each move. If the count matches the total number of counters initially allocated to each player, the player wins. This is represented by the game_over predicate, which verifies, after each turn, if a player has all their counters on the board. If so, the game ends, and that player is declared the winner.
+The game concludes when one of the players successfully places all of their counters on the game board. This is determined by counting the number of counters on the board after each move. If the count matches the total number of counters initially allocated to each player, the player wins. This is represented by the game_over predicate, which verifies, after each turn, if a player has all their counters on the board. If so, the game ends, and that player is declared the winner. In the image below is represented the game_over for the Player VS. Player mode.
+
+<p align="center">
+  <img src="img/game_over.png" />
+</p>
+
 
 - ### Game State Evaluation
 
