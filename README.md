@@ -54,6 +54,8 @@ For creating the initial state of the game, we have a predicate`initial_state` t
 
 - ### Move Validation and Execution
 
+When executing a move, it is necessary to garantee that that move is valid in the conext of that game state and the rules. With that we implemented a predicate `initial_state` taht is responsible for doing that validation. The rules says that every time a user wans to put a cell, that cell must be empty, represented in our game as `white` and that it cannot be on the boarders of the board, with that in mind, this predicate was created
+
 
 - ### List of Valid Moves
 In each move, we validate whether it is valid. A move is considered valid if:
