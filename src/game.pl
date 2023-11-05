@@ -151,7 +151,7 @@ pie_rule('n', pvc, _Board, X, Y) :-
 
 run_game(pvc, _Board, Level, blue, Y) :-
     display_game(_Board),
-    botMove(pvc, _Board, blue, NewBoard, Level, 1),
+    choose_move(pvc, _Board, blue, NewBoard, Level, 1),
     game_over(pvc, NewBoard, Level, blue, Y).
 
 run_game(pvc, _Board, Level, red, Y) :-
@@ -186,12 +186,12 @@ run_game(pvc, _Board, Level, red, 2) :-
 
 run_game(cvc, _Board, Level1, Level2, blue, Y) :-
     display_game(_Board),
-    botMove(cvc, _Board, blue, NewBoard,Level1, Y),
+    choose_move(cvc, _Board, blue, NewBoard,Level1, Y),
     game_over(cvc, NewBoard, Level1, Level2, blue, Y).
 
 run_game(cvc, _Board, Level1, Level2, red, Y) :-
     display_game(_Board),
-    botMove(cvc, _Board, red, NewBoard,Level2, Y),
+    choose_move(cvc, _Board, red, NewBoard,Level2, Y),
     game_over(cvc, NewBoard, Level1, Level2, red, Y).
     
     

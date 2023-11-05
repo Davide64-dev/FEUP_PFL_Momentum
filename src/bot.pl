@@ -26,9 +26,9 @@ hardBotMove(Board, BotColor, NewBoard) :-
     ).
 
 
-botMove(State, Board, BotColor, NewBoard, '1', Y) :- Y\= 2, write('The bot is playing...\n'), easyBotMove(State, Board, BotColor, NewBoard, 1).
+choose_move(State, Board, BotColor, NewBoard, '1', Y) :- Y\= 2, write('The bot is playing...\n'), easyBotMove(State, Board, BotColor, NewBoard, 1).
 
-botMove(State, Board, BotColor, NewBoard, '1', 2) :- random(1, 3, X), write('The bot is playing...\n'), easyBotMove(State, Board, BotColor, NewBoard, X).
+choose_move(State, Board, BotColor, NewBoard, '1', 2) :- random(1, 3, X), write('The bot is playing...\n'), easyBotMove(State, Board, BotColor, NewBoard, X).
 
-botMove(State, Board, BotColor, NewBoard, '2', Y) :- write('The hard bot is playing...\n'), hardBotMove(Board, BotColor, NewBoard).
+choose_move(State, Board, BotColor, NewBoard, '2', Y) :- write('The hard bot is playing...\n'), hardBotMove(Board, BotColor, NewBoard).
 
