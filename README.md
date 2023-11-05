@@ -64,9 +64,18 @@ When making a move, it is essential to ensure that the move is valid within the 
 
 The valid_moves predicate is responsible for generating a list of all possible cells where a player can place their counter.
 
+<p align="center">
+  <img src="img/valid_moves.png" />
+</p>
+
 - ### End of Game
 
-The game concludes when one of the players successfully places all of their counters on the game board. This is determined by counting the number of counters on the board after each move. If the count matches the total number of counters initially allocated to each player, the player wins. This is represented by the game_over predicate, which verifies, after each turn, if a player has all their counters on the board. If so, the game ends, and that player is declared the winner.
+The game concludes when one of the players successfully places all of their counters on the game board. This is determined by counting the number of counters on the board after each move. If the count matches the total number of counters initially allocated to each player, the player wins. This is represented by the game_over predicate, which verifies, after each turn, if a player has all their counters on the board. If so, the game ends, and that player is declared the winner. In the image below is represented the game_over for the Player VS. Player mode.
+
+<p align="center">
+  <img src="img/game_over.png" />
+</p>
+
 
 - ### Game State Evaluation
 
@@ -75,7 +84,13 @@ The game state is evaluated based on the current round number.
 - ### Computer plays
   For the computer's moves, two strategies are employed:
     - random moves in level 1, where the computer chooses random values for the column and row and checks if the move is valid.
-    - Greedy moves in level 2.
+      <p align="center">
+        <img src="img/easy_bot.png" />
+      </p>
+    - greedy moves in level 2, where the computer checks what is the best play in order to increase his number of counters on the board.
+      <p align="center">
+        <img src="img/hard_bot.png" />
+      </p>
 
 ## Conclusions
 The game was developed with three different modes (Player vs. Player, Player vs. Computer, and Computer vs. Computer) and supports three distinct board sizes (7x7, 7x9, and 9x9). The modes involving the computer offer two levels of difficulty, adding significant diversity to the gameplay. Every user interaction is thoroughly validated to ensure a smooth gaming experience. The main challenge encountered was organizing the code, which is a feature that can be improved. Overall, the project provided a valuable opportunity to solidify our understanding of the logical programming concepts learned in class.
