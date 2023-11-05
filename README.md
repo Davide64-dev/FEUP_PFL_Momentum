@@ -34,7 +34,7 @@ Depending on the game mode, additional parameters might include:
 
 
 - ### Game State Visualization
-- 
+
 At the beginning of the game, players are presented with options to "Play," "View Rules," or "Exit." Selecting "Play" allows them to configure the game settings, including the game mode (Human VS. Human, Human VS. Computer, or Computer VS. Computer) and the game board size (7x7, 7x9, or 9x9). In the Human VS. Human mode, the game commences after these choices. In other modes, players can specify the difficulty level (Level 1 or Level 2) and determine which player starts the game. An example interaction is demonstrated in the image below.
 
 <p align="center">
